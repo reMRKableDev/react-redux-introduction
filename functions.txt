@@ -1,0 +1,20 @@
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      email: ""
+    };
+  }
+
+  onSubmit = e => {
+    e.preventDefault();
+    const user = {
+      name: this.state.name,
+      email: this.state.email
+    };
+    this.props.addUser(user);
+  };
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };

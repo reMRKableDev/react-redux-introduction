@@ -4,13 +4,14 @@
     - Remember that actions only describe what happened,
       but don't describe how the application's state changes.
 */
-import { FETCH_USERS } from "../actions/actionTypes";
+import { FETCH_USERS, ADD_USER } from "../actions/actionTypes";
 
 /* 
     In Redux, all the application state is stored as a single object.
 */
 const initialState = {
-  items: []
+  items: [],
+  item: {}
 };
 
 /* 
@@ -25,6 +26,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         items: action.payload
+      };
+    case ADD_USER:
+      return {
+        ...state,
+        item: action.payload
       };
     default:
       return state;

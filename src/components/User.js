@@ -13,12 +13,18 @@ class User extends Component {
     a component is mounted (inserted into the tree). 
   */
   componentDidMount() {
-    this.props.getUsers();
+    this.props.getUsers(); // ACTION
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.newUser) {
+      this.props.users.unshift(nextProps.newUser);
+    }
   }
 
   render() {
-    const users = this.props.users.map(user => (
-      <div key={user.id}>
+    const users = this.props.users.map((user, index) => (
+      <div key={index}>
         <p>{user.name}</p>
         <p>{user.email}</p>
         <br />
@@ -26,7 +32,7 @@ class User extends Component {
     ));
     return (
       <div>
-        <h3>Users</h3>
+        <h1>Users</h1>
         {users}
       </div>
     );
@@ -54,7 +60,8 @@ User.propTypes = {
   and should return an object of data this component needs.
 */
 const mapStateToProps = state => ({
-  users: state.users.items
+  users: state.users.items,
+  newUser: state.users.item
 });
 
 /* 

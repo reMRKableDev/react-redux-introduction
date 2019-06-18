@@ -1,4 +1,4 @@
-import { FETCH_USERS } from "./actionTypes";
+import { FETCH_USERS, ADD_USER } from "./actionTypes";
 import axios from "axios";
 
 /* 
@@ -20,5 +20,19 @@ export const getUsers = () => dispatch => {
     })
     .catch(error =>
       console.error(`Something went really wrong: ${error.stack}`)
+    );
+};
+
+export const addUser = user => dispatch => {
+  axios
+    .post("https://jsonplaceholder.typicode.com/users", user)
+    .then(results => {
+      dispatch({
+        type: ADD_USER,
+        payload: results.data
+      });
+    })
+    .catch(error =>
+      console.error(`Something went wrong when adding user: ${error.stack}`)
     );
 };
